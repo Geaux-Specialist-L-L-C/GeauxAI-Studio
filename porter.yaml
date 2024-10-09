@@ -1,31 +1,29 @@
 version: v2
-name: geauxai-studio
-description: "A user-friendly, multi-platform GUI for managing and running CrewAI agents and tasks. Supports Conda and virtual environments, no coding needed."
-
+name: geaux-crewai
 services:
-  - name: web
-    type: web
-    port: 8501
-    run: streamlit run /CrewAI-Studio/app/app.py --server.headless true
-    instances: 1
-    cpuCores: 1
-    ramMegabytes: 1024
-
+- name: steamlit
+  run: streamlit run /CrewAI-Studio/app/app.py --server.headless true
+  type: web
+  instances: 1
+  cpuCores: 0.16
+  ramMegabytes: 300
+  terminationGracePeriodSeconds: 30
+  port: 8501
+  sleep: false
 build:
+  context: ./
   method: docker
-  context: .
-  dockerfile: Dockerfile
-
+  dockerfile: ./Dockerfile
 env:
-  OPENAI_API_KEY: "your-azure-openai-key"
-  OPENAI_API_BASE: "https://your-azure-openai-endpoint"
-
-predeploy:
-  run: |
-    apt update && apt upgrade -y
-    apt-get install build-essential -y
-    pip install --upgrade pip
-    pip install -r /CrewAI-Studio/requirements.txt
-
+- key: AGENTOPS_API_KEY
+  value: dd94a23a-6b94-4e02-b70a-8c9952ffe19a
+- key: ANTHROPIC_API_KEY
+  value: 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
+- key: GROQ_API_KEY
+  value: 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
+- key: OPENAI_API_BASE
+  value: https://geaux-openai.openai.azure.com/
+- key: OPENAI_API_KEY
+  value: 03cfbaafba5c421392e8473223bc73d9
 autoRollback:
-  enabled: true
+  enabled: false
