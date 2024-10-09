@@ -5,8 +5,8 @@ services:
   run: streamlit run /CrewAI-Studio/app/app.py --server.headless true
   type: web
   instances: 1
-  cpuCores: 0.16
-  ramMegabytes: 300
+  cpuCores: 0.26
+  ramMegabytes: 1300
   terminationGracePeriodSeconds: 30
   port: 8501
   sleep: false
